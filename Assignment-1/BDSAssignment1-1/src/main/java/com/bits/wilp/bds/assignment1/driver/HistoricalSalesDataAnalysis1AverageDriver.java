@@ -2,6 +2,7 @@ package com.bits.wilp.bds.assignment1.driver;
 
 
 import com.bits.wilp.bds.assignment1.map.GeoSalesMapper;
+import com.bits.wilp.bds.assignment1.partitioner.CountryPartitioner;
 import com.bits.wilp.bds.assignment1.reduce.SalesCountryReducer;
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.io.FileUtils;
@@ -47,8 +48,8 @@ public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implem
 
         String strItemType= sc.nextLine();
 
-        System.out.print("1. (b) Year (2013,2014,2015,2016,2017,2018,2019,2020,2021): ");
-        String strYear= sc.nextLine();
+       /* System.out.print("1. (b) Year (2013,2014,2015,2016,2017,2018,2019,2020,2021): ");
+        String strYear= sc.nextLine();*/
 
         //logger.info("Computing average for "+ strYear+" year  for "+strItemType+" item.");
 
@@ -66,13 +67,16 @@ public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implem
 
         // Setting User Input to Context
         job.getConfiguration().set(ApplicationUtils.INPUT_ITEM_TYPE,strItemType);
-        job.getConfiguration().set(ApplicationUtils.INPUT_SALE_YEAR,strYear);
+        //job.getConfiguration().set(ApplicationUtils.INPUT_SALE_YEAR,strYear);
 
 
         // Setting Job Input File path
         FileInputFormat.addInputPath(job, new Path(args[0]));
         // Setting Job Output File path
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
+
+        job.setPartitionerClass(CountryPartitioner.class);
+        job.setNumReduceTasks(2);
 
         job.setMapperClass(GeoSalesMapper.class);
         job.setReducerClass(SalesCountryReducer.class);

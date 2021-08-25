@@ -3,11 +3,15 @@ package com.bits.wilp.bds.assignment1;
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.hadoop.io.Writable;
 
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-public class GeoSalesOrder {
+public class GeoSalesOrder implements Writable {
     private String index ; // index
     private String region; // region
     private String country; // country
@@ -168,5 +172,49 @@ public class GeoSalesOrder {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);
+    }
+
+    @Override
+    public void write(DataOutput dataOutput) throws IOException {
+        dataOutput.writeUTF(country);
+        dataOutput.writeUTF(index );
+        dataOutput.writeUTF(itemType);
+        dataOutput.writeLong(orderDate.getTime());
+        dataOutput.writeUTF(orderId );
+        dataOutput.writeUTF(orderPriority );
+        dataOutput.writeUTF(region);
+        dataOutput.writeUTF(salesChannel );
+        dataOutput.writeLong(shipDate.getTime() );
+        dataOutput.writeUTF(strOrderDate );
+        dataOutput.writeUTF(strShipDate );
+        dataOutput.writeDouble(totalCost );
+        dataOutput.writeDouble(totalProfit );
+        dataOutput.writeDouble(totalRevenue );
+        dataOutput.writeDouble(unitCost );
+        dataOutput.writeDouble(unitPrice );
+        dataOutput.writeInt(unitsSold );
+    }
+
+    @Override
+    public void readFields(DataInput dataInput) throws IOException {
+        country= dataInput.readUTF();
+        index = dataInput.readUTF();
+        itemType= dataInput.readUTF();
+        orderDate = new Date(dataInput.readLong());
+        orderId = dataInput.readUTF();
+        orderPriority = dataInput.readUTF();
+        region= dataInput.readUTF();
+        salesChannel = dataInput.readUTF();
+        shipDate = new Date(dataInput.readLong());
+        strOrderDate = dataInput.readUTF();
+        strShipDate = dataInput.readUTF();
+        totalCost = dataInput.readDouble();
+        totalProfit = dataInput.readDouble();
+        totalRevenue = dataInput.readDouble();
+        unitCost = dataInput.readDouble();
+        unitPrice = dataInput.readDouble();
+        unitsSold = dataInput.readInt();
+
+
     }
 }

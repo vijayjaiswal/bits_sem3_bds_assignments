@@ -16,6 +16,7 @@ public class ApplicationUtils {
 
     public static final String INPUT_ITEM_TYPE = "inputItemType";
     public static final String INPUT_SALE_YEAR = "inputSaleYear";
+    public static final String INPUT_COUNTRY = "inputCountry";
 
 
     private static final String TIMESTAMP_FORMAT_STR = "yyyy-MM-dd HH:mm:ss";

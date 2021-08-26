@@ -14,7 +14,7 @@
 	<name>BDSAssignment1</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,7 +46,7 @@
 						<configuration>
 							<classifier>with-dependencies</classifier>
 							<mainClass>
-								com.bits.wilp.bds.assignment1.driver.HistoricalSalesDataAnalysis1AverageDriver
+								com.bits.wilp.bds.assignment1.driver.SalesDataAnalysis1MinMaxAvgDriver
 							</mainClass>
 						</configuration>
 					</execution>

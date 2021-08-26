@@ -1,4 +1,4 @@
-package com.bits.wilp.bds.assignment1;
+package com.bits.wilp.bds.assignment1.entity;
 
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;

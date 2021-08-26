@@ -1,6 +1,6 @@
 package com.bits.wilp.bds.assignment1.util;
 
-import com.bits.wilp.bds.assignment1.GeoSalesOrder;
+import com.bits.wilp.bds.assignment1.entity.GeoSalesOrder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

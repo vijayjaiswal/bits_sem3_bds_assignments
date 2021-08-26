@@ -1,6 +1,7 @@
 package com.bits.wilp.bds.assignment1.driver;
 
 
+import com.bits.wilp.bds.assignment1.entity.GeoSalesOrder;
 import com.bits.wilp.bds.assignment1.map.GeoSalesMapper;
 import com.bits.wilp.bds.assignment1.partitioner.CountryPartitioner;
 import com.bits.wilp.bds.assignment1.reduce.SalesCountryReducer;
@@ -22,12 +23,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Scanner;
 
-public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implements Tool {
-    private static final Logger logger = LoggerFactory.getLogger(HistoricalSalesDataAnalysis1AverageDriver.class);
+public class SalesDataAnalysis1MinMaxAvgDriver extends Configured implements Tool {
+    private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis1MinMaxAvgDriver.class);
 
     // Main Method to Run Historical Sales Data Analysis: 1 Average Unit Price By Country
     public static void main(String[] args) throws Exception{
-        int exitCode = ToolRunner.run(new HistoricalSalesDataAnalysis1AverageDriver(), args);
+        int exitCode = ToolRunner.run(new SalesDataAnalysis1MinMaxAvgDriver(), args);
         System.exit(exitCode);
     }
 
@@ -39,7 +40,7 @@ public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implem
             System.err.printf("Usage: %s needs two arguments, input and output files path\n", getClass().getSimpleName());
             return -1;
         }
-
+        // Take Input from User
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream.
         System.out.print("1. Finding Average unit_price by country for a given item type in a certain year: ");
         System.out.print("Please enter following: ");
@@ -57,15 +58,18 @@ public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implem
         logger.info("Deleting existing Output folder: "+args[1]);
         FileUtils.deleteDirectory(new File(args[1]));
 
+        // Configure MapReduce Job
         Job job = Job.getInstance();
-        job.setJarByClass(HistoricalSalesDataAnalysis1AverageDriver.class);
-        job.setJobName("HistoricalSalesDataAnalysis-1-AveragePriceByCountry");
+        job.setJarByClass(SalesDataAnalysis1MinMaxAvgDriver.class);
+        job.setJobName("SalesDataAnalysis-1-MinMaxAveragePriceByCountry");
 
         job.setOutputKeyClass(Text.class);
+        /*
         job.setOutputValueClass(IntWritable.class);
-        job.setOutputValueClass(DoubleWritable.class);
+        job.setOutputValueClass(DoubleWritable.class);*/
+        job.setOutputValueClass(GeoSalesOrder.class);
 
-        // Setting User Input to Context
+        // Setting User Input into Job context
         job.getConfiguration().set(ApplicationUtils.INPUT_ITEM_TYPE,strItemType);
         //job.getConfiguration().set(ApplicationUtils.INPUT_SALE_YEAR,strYear);
 
@@ -75,9 +79,11 @@ public class HistoricalSalesDataAnalysis1AverageDriver extends Configured implem
         // Setting Job Output File path
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
 
+        // Setting Partition by Country
         job.setPartitionerClass(CountryPartitioner.class);
         job.setNumReduceTasks(2);
 
+        // Configuring Mapper and Reducer classes
         job.setMapperClass(GeoSalesMapper.class);
         job.setReducerClass(SalesCountryReducer.class);
 

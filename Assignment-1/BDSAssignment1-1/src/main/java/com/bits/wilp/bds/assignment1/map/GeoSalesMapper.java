@@ -1,6 +1,6 @@
 package com.bits.wilp.bds.assignment1.map;
 
-import com.bits.wilp.bds.assignment1.GeoSalesOrder;
+import com.bits.wilp.bds.assignment1.entity.GeoSalesOrder;
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Objects;
 
-public class GeoSalesMapper extends Mapper<LongWritable, Text, Text, DoubleWritable> {
+public class GeoSalesMapper extends Mapper<LongWritable, Text, Text, GeoSalesOrder> {
     private static final Logger logger = LoggerFactory.getLogger(GeoSalesMapper.class);
     private Text word = new Text();
 
@@ -28,6 +28,7 @@ public class GeoSalesMapper extends Mapper<LongWritable, Text, Text, DoubleWrita
         //logger.info("Processing: "+geoSalesOrder.toString());
 
         String orderYear= ApplicationUtils.getDatePartFromDate(geoSalesOrder.getOrderDate());
+
         // Filter for Item Type and Year
         //logger.info("Filtering for item ("+strItemType+") and sale year("+strYear+")");
         //logger.info("data orderYear("+orderYear+") and ItemType("+geoSalesOrder.getItemType()+")");
@@ -38,8 +39,9 @@ public class GeoSalesMapper extends Mapper<LongWritable, Text, Text, DoubleWrita
                 //word.set(geoSalesOrder.getCountry()+"~"+geoSalesOrder.getItemType()+"~"+orderYear);
                 word.set(geoSalesOrder.getCountry()+"~"+orderYear);
 
-                DoubleWritable unitPrice=  new DoubleWritable(geoSalesOrder.getUnitPrice());
-                context.write(word, unitPrice);
+                //DoubleWritable unitPrice=  new DoubleWritable(geoSalesOrder.getUnitPrice());
+
+                context.write(word, geoSalesOrder);
             }
         }
 

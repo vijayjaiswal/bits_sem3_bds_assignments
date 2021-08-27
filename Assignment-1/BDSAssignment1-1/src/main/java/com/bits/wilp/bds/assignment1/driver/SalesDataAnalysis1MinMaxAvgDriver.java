@@ -45,8 +45,8 @@ public class SalesDataAnalysis1MinMaxAvgDriver extends Configured implements Too
         }
         // Take Input from User
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream.
-        System.out.print("1. Finding Average unit_price by country for a given item type in a certain year: ");
-        System.out.print("Please enter following: ");
+        System.out.println("1. Finding Average unit_price by country for a given item type in a certain year: ");
+        System.out.println("Please enter following:");
         System.out.print("1. (a) Item Type (Baby Food, Beverages, Cereal, Clothes, Cosmetics\n" +
                 "\t\t\t\t Fruits, Household, Meat, Office Supplies, Personal Care, Snacks, Vegetables): ");
 

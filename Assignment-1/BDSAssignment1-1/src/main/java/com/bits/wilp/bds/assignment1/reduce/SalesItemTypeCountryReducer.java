@@ -9,7 +9,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Iterator;
-
+// Reducer Class for getting Total Unit Sold
+// Key:Country~ItemType~Year Value: SalesUnitsSoldVO
 public class SalesItemTypeCountryReducer extends Reducer<Text, GeoSalesOrder, Text, SalesUnitsSoldVO> {
     private static final Logger logger = LoggerFactory.getLogger(SalesItemTypeCountryReducer.class);
 
@@ -26,7 +27,7 @@ public class SalesItemTypeCountryReducer extends Reducer<Text, GeoSalesOrder, Te
         salesUnitsSoldVO.setTotalUnitsSold(totalUnitsSold);
         logger.info("key:" + key + " salesUnitsSoldVO:" + salesUnitsSoldVO);
 
-
+        // Emitting the Output
         context.write(key, salesUnitsSoldVO);
 
     }

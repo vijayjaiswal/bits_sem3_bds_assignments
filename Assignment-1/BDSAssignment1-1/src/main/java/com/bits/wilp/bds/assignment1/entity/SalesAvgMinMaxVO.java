@@ -8,6 +8,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+// POJO: Entity to hold and emmit Average Unit Price, Min and Max of Unit Sold
 public class SalesAvgMinMaxVO implements Writable {
     private Double averageUnitPrice; // average unit_price
     private Double minUnitSold; // min UnitPrice

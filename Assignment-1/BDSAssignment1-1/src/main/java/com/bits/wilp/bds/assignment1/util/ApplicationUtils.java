@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Objects;
 
+// POJO: Utility Class for generic methods
 public class ApplicationUtils {
     private static final Logger logger = LoggerFactory.getLogger(ApplicationUtils.class);
 

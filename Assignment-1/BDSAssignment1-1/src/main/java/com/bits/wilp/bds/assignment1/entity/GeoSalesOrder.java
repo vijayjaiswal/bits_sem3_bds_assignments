@@ -9,9 +9,9 @@ import org.apache.hadoop.io.WritableComparable;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Date;
 
+// POJO: Entity to hold Sales Data
 public class GeoSalesOrder implements Writable, WritableComparable {
     private String index ; // index
     private String region; // region
@@ -222,6 +222,7 @@ public class GeoSalesOrder implements Writable, WritableComparable {
     @Override
     public int compareTo(Object o) {
         GeoSalesOrder tmpGeoSalesOrder=(GeoSalesOrder) o;
+        //Using OrderId for comparision
         return orderId.compareTo(tmpGeoSalesOrder.orderId);
     }
 

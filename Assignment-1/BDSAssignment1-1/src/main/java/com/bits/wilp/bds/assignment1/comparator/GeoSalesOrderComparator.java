@@ -13,17 +13,17 @@ public class GeoSalesOrderComparator extends WritableComparator implements Compa
 
     @Override
     public int compare(WritableComparable o, WritableComparable o2){
-        //System.out.println("in compare");
         GeoSalesOrder m = (GeoSalesOrder)o;
         GeoSalesOrder m2 = (GeoSalesOrder)o2;
 
+        // Comparing against Total Profit
         int compare = (int)m2.getTotalProfit().doubleValue() - (int)m.getTotalProfit().doubleValue();
-        /*if (compare == 0) {
-            compare = m.getOrderId().compareTo(m2.getOrderId());
-        }*/
+        //In case profit is equal then comparing with Order Id
+        if (compare == 0) {
+            compare = m2.getOrderId().compareTo(m.getOrderId());
+        }
 
         return compare;
-
     }
 
 }

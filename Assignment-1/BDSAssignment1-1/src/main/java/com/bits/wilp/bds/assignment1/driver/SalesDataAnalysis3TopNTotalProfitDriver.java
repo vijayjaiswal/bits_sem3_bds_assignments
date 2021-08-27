@@ -22,6 +22,9 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Scanner;
 
+// Driver Program for following:
+// Q4.	What are the top 10 order id for a given year by the total_profit
+
 public class SalesDataAnalysis3TopNTotalProfitDriver extends Configured implements Tool {
     private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis3TopNTotalProfitDriver.class);
 
@@ -41,17 +44,9 @@ public class SalesDataAnalysis3TopNTotalProfitDriver extends Configured implemen
         }
         // Take Input from User
         Scanner sc= new Scanner(System.in); //System.in is a standard input stream.
-        /*System.out.print("1. Finding Average unit_price by country for a given item type in a certain year: ");
-        System.out.print("Please enter following: ");
-        System.out.print("1. (a) Item Type (Baby Food, Beverages, Cereal, Clothes, Cosmetics\n" +
-                "\t\t\t\t Fruits, Household, Meat, Office Supplies, Personal Care, Snacks, Vegetables): ");
-
-        String strItemType= sc.nextLine();*/
 
         System.out.print("1. (a) Year (2013,2014,2015,2016,2017,2018,2019,2020,2021): ");
         String strYear= sc.nextLine();
-
-        //logger.info("Computing average for "+ strYear+" year  for "+strItemType+" item.");
 
         // Deleting existing Output folder (if already exist)
         logger.info("Deleting existing Output folder: "+args[1]);
@@ -69,7 +64,6 @@ public class SalesDataAnalysis3TopNTotalProfitDriver extends Configured implemen
         job.setOutputValueClass(GeoSalesOrder.class);
 
         // Setting User Input into Job context
-        //job.getConfiguration().set(ApplicationUtils.INPUT_ITEM_TYPE,strItemType);
         job.getConfiguration().set(ApplicationUtils.INPUT_SALE_YEAR,strYear);
 
 

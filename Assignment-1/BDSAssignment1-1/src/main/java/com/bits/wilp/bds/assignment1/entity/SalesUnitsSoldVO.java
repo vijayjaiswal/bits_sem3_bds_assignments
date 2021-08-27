@@ -8,6 +8,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
+// POJO: Entity to hold and emmit total Unit Sold
 public class SalesUnitsSoldVO implements Writable {
     private Integer totalUnitsSold; // Total unit_sold
 

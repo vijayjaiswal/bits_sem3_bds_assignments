@@ -3,9 +3,6 @@ package com.bits.wilp.bds.assignment1.driver;
 
 import com.bits.wilp.bds.assignment1.entity.GeoSalesOrder;
 import com.bits.wilp.bds.assignment1.map.GeoItemTypeSalesMapper;
-import com.bits.wilp.bds.assignment1.map.GeoSalesMapper;
-import com.bits.wilp.bds.assignment1.partitioner.CountryPartitioner;
-import com.bits.wilp.bds.assignment1.reduce.SalesCountryReducer;
 import com.bits.wilp.bds.assignment1.reduce.SalesItemTypeCountryReducer;
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.io.FileUtils;
@@ -23,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Scanner;
 
+// Driver Program for following:
+// Q2.	Total units_sold by year for a given country and a given item type
 public class SalesDataAnalysis2TotalUnitSoldDriver extends Configured implements Tool {
     private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis2TotalUnitSoldDriver.class);
 

@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Objects;
 
+// Mapper Class Key:Country~ItemType~Year Value:GeoSalesOrder
 public class GeoItemTypeSalesMapper extends Mapper<LongWritable, Text, Text, GeoSalesOrder> {
     private static final Logger logger = LoggerFactory.getLogger(GeoItemTypeSalesMapper.class);
     private Text word = new Text();
@@ -36,8 +37,5 @@ public class GeoItemTypeSalesMapper extends Mapper<LongWritable, Text, Text, Geo
                 context.write(word, geoSalesOrder);
             }
         }
-
     }
-
-
 }

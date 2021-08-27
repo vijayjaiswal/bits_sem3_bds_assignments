@@ -9,8 +9,6 @@ import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -22,6 +20,11 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Scanner;
+
+// Driver Program for following:
+// Q1.	Average unit_price by country for a given item type in a certain year
+// Q3.	Find the max and min units_sold in any order for each year by country for a given item type.
+//      Use a custom partitioner class instead of default hash based.
 
 public class SalesDataAnalysis1MinMaxAvgDriver extends Configured implements Tool {
     private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis1MinMaxAvgDriver.class);
@@ -49,11 +52,6 @@ public class SalesDataAnalysis1MinMaxAvgDriver extends Configured implements Too
 
         String strItemType= sc.nextLine();
 
-       /* System.out.print("1. (b) Year (2013,2014,2015,2016,2017,2018,2019,2020,2021): ");
-        String strYear= sc.nextLine();*/
-
-        //logger.info("Computing average for "+ strYear+" year  for "+strItemType+" item.");
-
         // Deleting existing Output folder (if already exist)
         logger.info("Deleting existing Output folder: "+args[1]);
         FileUtils.deleteDirectory(new File(args[1]));
@@ -64,15 +62,10 @@ public class SalesDataAnalysis1MinMaxAvgDriver extends Configured implements Too
         job.setJobName("SalesDataAnalysis-1-MinMaxAveragePriceByCountry");
 
         job.setOutputKeyClass(Text.class);
-        /*
-        job.setOutputValueClass(IntWritable.class);
-        job.setOutputValueClass(DoubleWritable.class);*/
         job.setOutputValueClass(GeoSalesOrder.class);
 
         // Setting User Input into Job context
         job.getConfiguration().set(ApplicationUtils.INPUT_ITEM_TYPE,strItemType);
-        //job.getConfiguration().set(ApplicationUtils.INPUT_SALE_YEAR,strYear);
-
 
         // Setting Job Input File path
         FileInputFormat.addInputPath(job, new Path(args[0]));

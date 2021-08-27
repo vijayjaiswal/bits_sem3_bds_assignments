@@ -4,16 +4,13 @@ package com.bits.wilp.bds.assignment1.driver;
 import com.bits.wilp.bds.assignment1.comparator.GeoSalesOrderComparator;
 import com.bits.wilp.bds.assignment1.entity.GeoSalesOrder;
 import com.bits.wilp.bds.assignment1.map.GeoSalesTopNMapper;
-import com.bits.wilp.bds.assignment1.partitioner.CountryPartitioner;
 import com.bits.wilp.bds.assignment1.reduce.GeoSalesTopNReducer;
 import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;
-import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
@@ -25,12 +22,12 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.util.Scanner;
 
-public class SalesDataAnalysis1TopNTotalProfitDriver extends Configured implements Tool {
-    private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis1TopNTotalProfitDriver.class);
+public class SalesDataAnalysis3TopNTotalProfitDriver extends Configured implements Tool {
+    private static final Logger logger = LoggerFactory.getLogger(SalesDataAnalysis3TopNTotalProfitDriver.class);
 
     // Main Method to Run Historical Sales Data Analysis: 1 Average Unit Price By Country
     public static void main(String[] args) throws Exception{
-        int exitCode = ToolRunner.run(new SalesDataAnalysis1TopNTotalProfitDriver(), args);
+        int exitCode = ToolRunner.run(new SalesDataAnalysis3TopNTotalProfitDriver(), args);
         System.exit(exitCode);
     }
 
@@ -62,7 +59,7 @@ public class SalesDataAnalysis1TopNTotalProfitDriver extends Configured implemen
 
         // Configure MapReduce Job
         Job job = Job.getInstance();
-        job.setJarByClass(SalesDataAnalysis1TopNTotalProfitDriver.class);
+        job.setJarByClass(SalesDataAnalysis3TopNTotalProfitDriver.class);
         job.setJobName("SalesDataAnalysis-1-Top-N-OrderByProfit");
 
         job.setMapOutputKeyClass(GeoSalesOrder.class);

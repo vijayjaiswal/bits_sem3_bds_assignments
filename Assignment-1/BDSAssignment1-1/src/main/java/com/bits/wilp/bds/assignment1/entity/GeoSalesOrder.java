@@ -4,6 +4,7 @@ import com.bits.wilp.bds.assignment1.util.ApplicationUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.apache.hadoop.io.Writable;
+import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 
-public class GeoSalesOrder implements Writable {
+public class GeoSalesOrder implements Writable, WritableComparable {
     private String index ; // index
     private String region; // region
     private String country; // country
@@ -216,5 +217,22 @@ public class GeoSalesOrder implements Writable {
         unitsSold = dataInput.readInt();
 
 
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        GeoSalesOrder tmpGeoSalesOrder=(GeoSalesOrder) o;
+        return orderId.compareTo(tmpGeoSalesOrder.orderId);
+    }
+
+    @Override
+    public int hashCode(){
+        return orderId.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o){
+        GeoSalesOrder m=(GeoSalesOrder)o;
+        return orderId.equals(m.orderId);
     }
 }

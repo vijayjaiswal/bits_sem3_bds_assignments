@@ -89,6 +89,31 @@ def execute_query_aggregate(collection, myquery, groupBy, sort_col, sort_col_ord
     else:
         print("No record found for query! :( ")
 
+# Method to execute Q1
+def execute_q1(zipcode, type_of_food):
+    # Sample Input - "CF243JH", "Lebanese"
+    myquery = {"zipcode": zipcode, "type_of_food": type_of_food}
+    fields = ""
+    execute_query(rest, myquery, fields, "rating", -1, 10)
+
+# Method to execute Q2
+def execute_q2(address, rating):
+    myquery = {"address": { "$regex": address}, "rating": { "$gt": rating} }
+    fields = {'name': 1, 'type_of_food': 1, 'address':1, 'rating':1 }
+    execute_query(rest, myquery, fields, "rating", -1, 10)
+
+# Method to execute Q3
+def execute_q3(type_of_food):
+    myquery = {"type_of_food": type_of_food}
+    groupBy = {"_id": {"ZIPCODE": "$zipcode", "type_of_food": "$type_of_food"}, "Count": {"$sum": 1}}
+    execute_query_aggregate(rest, myquery, groupBy, "Count", -1, 10)
+
+# Method to execute Q4
+def execute_q4():
+    myquery = {}
+    groupBy = {"_id": {"Type Of Food": "$type_of_food"}, "AVG_RATING": {"$avg": "$rating"}}
+    execute_query_aggregate(rest, myquery, groupBy, "AVG_RATING", -1, 10)
+
 # Method for Question 1
 def q1():
     print("\nQuestion 1:")
@@ -102,9 +127,8 @@ def q1():
     tf = input()
 
     # Sample Input - "CF243JH", "Lebanese"
-    myquery = { "zipcode": zc, "type_of_food": tf}
-    fields = ""
-    execute_query(rest, myquery,fields, "rating", -1, 10)
+    execute_q1(zc,tf)
+
 
 # Method for Question 2
 def q2():
@@ -118,10 +142,7 @@ def q2():
     mr = int(input())
 
     #Sample Input City, 4
-
-    myquery = {"address": { "$regex": ad}, "rating": { "$gt": mr} }
-    fields = {'name': 1, 'type_of_food': 1, 'address':1, 'rating':1 }
-    execute_query(rest, myquery, fields, "rating", -1, 10)
+    execute_q2(ad, mr)
 
 # Method for Question 3
 def q3() :
@@ -131,18 +152,13 @@ def q3() :
     get_unique_values(rest, 'type_of_food')
     tf = input()
 
-    myquery = {"type_of_food": tf}
-    groupBy ={"_id":{"ZIPCODE":"$zipcode","type_of_food":"$type_of_food"}, "Count":{"$sum":1}}
-    execute_query_aggregate(rest, myquery, groupBy,"Count",-1, 10)
+    execute_q3(tf)
 
 # Method for Question 4
 def q4() :
     print("\nQuestion 4:")
     print("Show the average rating per type of food and provide an ascending sorted output \n(type of food, rating) by rating.")
-
-    myquery = {}
-    groupBy = {"_id":{"Type Of Food":"$type_of_food"},"AVG_RATING":{"$avg":"$rating"}}
-    execute_query_aggregate(rest, myquery, groupBy, "AVG_RATING", -1, 10)
+    execute_q4()
 
 
 # Main Method to Run the application and get user's input
